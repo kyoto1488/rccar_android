@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RC Car</string>
+
+    <!--Main activity-->
+    <string name="enableDeviceUse">Разрешите использовать ваше устройство</string>
+
+    <!--Search activity-->
+    <string name="enableRcCar">
+        Автоматическая настройка подключения
+    </string>
+    <string name="searchRcCar">
+        Включить RC устройство
+    </string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Font sizes-->
+    <dimen name="textSizeNormal">17sp</dimen>
+    <dimen name="textSizeSmall">15sp</dimen>
+</resources>
