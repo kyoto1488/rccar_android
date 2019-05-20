@@ -5,13 +5,17 @@
     <color name="colorAccent">#D50000</color>
     <color name="colorDark">#343a40</color>
     <color name="colorLight">#f8f9fa</color>
-    <color name="colorMuted">#9297A0</color>
+    <color name="colorMuted">#75767C</color>
     <color name="colorWarning">#EF6C00</color>
+
+    <!--Main styles-->
+    <color name="mainBackground">@color/colorLight</color>
+    <color name="mainFontColor">@color/colorDark</color>
 
     <!--ActionBar colors-->
     <color name="colorActionBarBackground">#1D2024</color>
 
     <!--Joystick colors-->
-    <color name="colorJoystickPad">#D1D1D1</color>
-    <color name="colorJoystickButton">@color/colorDark</color>
+    <color name="colorJoystickPad">@color/colorWarning</color>
+    <color name="colorJoystickButton">@color/colorLight</color>
 </resources>
