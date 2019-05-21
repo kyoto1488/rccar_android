@@ -42,7 +42,7 @@ public class Bluetooth extends me.aflak.bluetooth.Bluetooth {
     }
 
     /**
-     * Is bounded by address
+     * Check bounded device by address
      *
      * @param address
      * @return
