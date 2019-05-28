@@ -22,7 +22,6 @@ public class JoystickActivity extends AppCompatActivity {
     private JoyStick controlJoystickY;
     private JoyStick controlJoystickX;
     private ImageView buttonSwitchLed;
-    private boolean ledOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,9 @@ public class JoystickActivity extends AppCompatActivity {
         setContentView(R.layout.activity_joystick);
 
         bluetooth = new Bluetooth(this);
+        bluetooth.setBluetoothCallback(bluetoothCallback);
+        bluetooth.setDeviceCallback(deviceCallback);
+        bluetooth.setDiscoveryCallback(discoveryCallback);
 
         controlJoystickY = findViewById(R.id.controlJoystickY);
         controlJoystickY.enableStayPut(false);
@@ -46,9 +48,7 @@ public class JoystickActivity extends AppCompatActivity {
         buttonSwitchLed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ledOn = !ledOn;
 
-                buttonSwitchLed.setImageResource(ledOn ? R.drawable.ic_led_on : R.drawable.ic_led_off);
             }
         });
     }

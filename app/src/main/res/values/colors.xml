@@ -15,6 +15,9 @@
     <!--ActionBar colors-->
     <color name="colorActionBarBackground">#1D2024</color>
 
+    <!--ProgressBar colors-->
+    <color name="colorProgressBar">@color/colorWarning</color>
+
     <!--Joystick colors-->
     <color name="colorJoystickPad">@color/colorWarning</color>
     <color name="colorJoystickButton">@color/colorLight</color>
