@@ -21,6 +21,7 @@
 
         <activity
             android:name=".JoystickActivity"
+            android:noHistory="true"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -45,7 +46,7 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="target_device_mac"
-            android:value="5A:D9:E8:11:6E:11" />
+            android:value="98:D3:81:FD:57:4B" />
         <meta-data
             android:name="target_device_pin"
             android:value="1234" />

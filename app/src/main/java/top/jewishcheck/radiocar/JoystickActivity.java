@@ -17,15 +17,53 @@ import top.jewishcheck.radiocar.constants.Search;
 
 public class JoystickActivity extends AppCompatActivity {
     private final String TAG = "JOYSTICK_ACTIVITY";
-    private final int REQUEST_SEARCH_DEVICE = 0x0001;
-
-    private boolean deviceConnected = false;
 
     private Bluetooth bluetooth;
     private JoyStick controlJoystickY;
     private JoyStick controlJoystickX;
     private ImageView buttonSwitchLed;
     private boolean ledOn = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_joystick);
+
+        bluetooth = new Bluetooth(this);
+
+        controlJoystickY = findViewById(R.id.controlJoystickY);
+        controlJoystickY.enableStayPut(false);
+        controlJoystickY.setType(JoyStick.TYPE_8_AXIS);
+        controlJoystickY.setListener(joyStickListenerY);
+
+        controlJoystickX = findViewById(R.id.controlJoystickX);
+        controlJoystickX.enableStayPut(false);
+        controlJoystickX.setType(JoyStick.TYPE_8_AXIS);
+        controlJoystickX.setListener(joyStickListenerX);
+
+        buttonSwitchLed = findViewById(R.id.buttonSwitchLed);
+
+        buttonSwitchLed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ledOn = !ledOn;
+
+                buttonSwitchLed.setImageResource(ledOn ? R.drawable.ic_led_on : R.drawable.ic_led_off);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bluetooth.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bluetooth.onStop();
+    }
 
     private JoyStick.JoyStickListener joyStickListenerX = new JoyStick.JoyStickListener() {
         @Override
@@ -159,84 +197,4 @@ public class JoystickActivity extends AppCompatActivity {
 
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_joystick);
-
-        bluetooth = new Bluetooth(this);
-
-        controlJoystickY = findViewById(R.id.controlJoystickY);
-        controlJoystickY.enableStayPut(false);
-        controlJoystickY.setType(JoyStick.TYPE_8_AXIS);
-        controlJoystickY.setListener(joyStickListenerY);
-
-        controlJoystickX = findViewById(R.id.controlJoystickX);
-        controlJoystickX.enableStayPut(false);
-        controlJoystickX.setType(JoyStick.TYPE_8_AXIS);
-        controlJoystickX.setListener(joyStickListenerX);
-
-        buttonSwitchLed = findViewById(R.id.buttonSwitchLed);
-
-        buttonSwitchLed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ledOn = !ledOn;
-
-                buttonSwitchLed.setImageResource(ledOn ? R.drawable.ic_led_on : R.drawable.ic_led_off);
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        bluetooth.onStart();
-
-        if (!deviceConnected) {
-            //startActivitySearchDevice();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        bluetooth.onStop();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_SEARCH_DEVICE) {
-            if (resultCode == RESULT_OK) {
-                deviceConnected = true;
-            } else if (resultCode == RESULT_CANCELED) {
-                int resultCodeFromIntent = data.getIntExtra("resultCode", 0);
-
-                switch (resultCodeFromIntent) {
-                    case Search.RESULT_BLUETOOTH_OFF:
-                        Utils.showLongToast(getApplicationContext(), "Bluetooth turning off! Good by!");
-                        break;
-                    case Search.RESULT_USER_DENIED_ACTIVATION:
-                        Utils.showLongToast(getApplicationContext(), "Bluetooth device denied activation");
-                        break;
-                    case Search.PAIRED_WITH_UNKNOWN_DEVICE:
-                        Utils.showLongToast(getApplicationContext(), "Paired with unknown device");
-                        break;
-                    case Search.CONNECTED_TO_UNKOWN_DEVICE:
-                        Utils.showLongToast(getApplicationContext(), "Connected to unknown device");
-                        break;
-                }
-
-                finish();
-            }
-        }
-    }
-
-    public void startActivitySearchDevice() {
-        Intent searchActivityIntent = new Intent(this, SearchActivity.class);
-        startActivityForResult(searchActivityIntent, REQUEST_SEARCH_DEVICE);
-    }
 }

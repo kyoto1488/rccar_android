@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void startNextActivity() {
         startActivity(
-                new Intent(getApplicationContext(), JoystickActivity.class)
+                new Intent(getApplicationContext(), SearchActivity.class)
         );
     }
 
